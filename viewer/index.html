@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Game Asset Forge GLB 검사 뷰어" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Asset Forge Viewer</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">AF</span>
+          <div>
+            <strong>Asset Forge</strong>
+            <span>GLB Viewer</span>
+          </div>
+        </div>
+        <div id="load-state" class="load-state" role="status" aria-live="polite">
+          <span class="state-dot"></span>
+          <span>샘플 장면</span>
+        </div>
+        <div class="file-actions">
+          <button id="reload" class="quiet-button" type="button" disabled>새로고침</button>
+          <label class="primary-button" for="file-input">GLB 열기</label>
+          <input id="file-input" type="file" accept=".glb,model/gltf-binary" />
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section id="viewport" class="viewport" aria-label="3D 에셋 뷰포트">
+          <canvas id="scene"></canvas>
+          <div id="drop-target" class="drop-target" aria-hidden="true">
+            <strong>GLB를 여기에 놓으세요</strong>
+            <span>파일은 브라우저 안에서만 읽습니다</span>
+          </div>
+          <div class="viewport-hint">드래그: 회전 · 우클릭: 이동 · 스크롤: 확대</div>
+          <div class="axis-labels" aria-hidden="true">
+            <span class="axis-x">X</span><span class="axis-y">Y</span><span class="axis-z">Z</span>
+          </div>
+        </section>
+
+        <aside class="inspector" aria-label="에셋 검사 정보">
+          <section>
+            <p class="eyebrow">ASSET</p>
+            <h1 id="asset-name">procedural_crate_preview</h1>
+            <p id="asset-origin" class="muted">뷰어 확인용 내장 샘플</p>
+          </section>
+
+          <section class="metric-grid" aria-label="에셋 측정치">
+            <div><span>Triangles</span><strong id="triangles">0</strong></div>
+            <div><span>Materials</span><strong id="materials">0</strong></div>
+            <div><span>Meshes</span><strong id="meshes">0</strong></div>
+            <div><span>File</span><strong id="file-size">—</strong></div>
+          </section>
+
+          <section>
+            <div class="section-heading"><h2>Dimensions</h2><span>meter</span></div>
+            <div class="dimension-row">
+              <span class="x">X <b id="dim-x">0.00</b></span>
+              <span class="y">Y <b id="dim-y">0.00</b></span>
+              <span class="z">Z <b id="dim-z">0.00</b></span>
+            </div>
+          </section>
+
+          <section>
+            <h2>Display</h2>
+            <div class="toggle-list">
+              <button id="toggle-grid" class="toggle active" type="button" aria-pressed="true">
+                <span>Grid</span><i></i>
+              </button>
+              <button id="toggle-bounds" class="toggle" type="button" aria-pressed="false">
+                <span>Bounds</span><i></i>
+              </button>
+              <button id="toggle-wireframe" class="toggle" type="button" aria-pressed="false">
+                <span>Wireframe</span><i></i>
+              </button>
+              <button id="toggle-outline" class="toggle" type="button" aria-pressed="false">
+                <span>Anime outline</span><i></i>
+              </button>
+            </div>
+          </section>
+
+          <section>
+            <div class="section-heading"><h2>Expression</h2><span>review</span></div>
+            <label class="select-label" for="expression-selector">Expression</label>
+            <select id="expression-selector">
+              <option value="neutral">Neutral</option>
+              <option value="soft-smile" disabled>Soft smile</option>
+              <option value="blink" disabled>Blink</option>
+              <option value="open-mouth" disabled>Open mouth</option>
+            </select>
+          </section>
+
+          <section class="checks">
+            <div class="section-heading"><h2>Pose</h2><span>review</span></div>
+            <label class="select-label" for="pose-selector">Head movement</label>
+            <select id="pose-selector">
+              <option value="neutral">Neutral</option>
+              <option value="head-turn" disabled>Turn head</option>
+              <option value="head-nod" disabled>Nod head</option>
+              <option value="neck-nod" disabled>Nod neck</option>
+              <option value="tail-swing" disabled>Swing ponytail</option>
+            </select>
+          </section>
+
+          <section class="checks">
+            <div class="section-heading"><h2>Quick checks</h2><span>viewer</span></div>
+            <ul id="checks-list"></ul>
+          </section>
+
+          <button id="frame-model" class="frame-button" type="button">모델에 맞추기 <span>F</span></button>
+        </aside>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
